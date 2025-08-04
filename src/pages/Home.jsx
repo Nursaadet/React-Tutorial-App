@@ -4,22 +4,22 @@ import TutorialList from "../components/TutorialList";
 import axios from "axios";
 
 const Home = () => {
-  const [tutorials, setTutorials] = useState([])
+  const [tutorials, setTutorials] = useState([]);
   const getTutorials = async () => {
     const URL = "https://tutorial-api.fullstack.clarusway.com/tutorials/";
     const res = await axios(URL);
-    console.log(res.data)
+    console.log(res.data);
+    setTutorials(res.data)
   };
 
- useEffect(() => {
-   getTutorials()
- }, [])
- 
+  useEffect(() => {
+    getTutorials();
+  }, []);
 
   return (
     <>
-      <AddTutorial />
-      <TutorialList />
+      <AddTutorial getTutorials={getTutorials}/>
+      <TutorialList tutorials={tutorials} />
     </>
   );
 };
