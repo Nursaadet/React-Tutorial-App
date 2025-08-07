@@ -6,10 +6,13 @@ import axios from "axios";
 const Home = () => {
   const [tutorials, setTutorials] = useState([]);
   const getTutorials = async () => {
-    const URL = "https://tutorial-api.fullstack.clarusway.com/tutorials/";
-    const res = await axios(URL);
-    console.log(res.data);
-    setTutorials(res.data)
+    try {
+      const res = await axios(process.env.REACT_APP_URL);
+      console.log(res.data);
+      setTutorials(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -18,8 +21,8 @@ const Home = () => {
 
   return (
     <>
-      <AddTutorial getTutorials={getTutorials}/>
-      <TutorialList tutorials={tutorials} />
+      <AddTutorial getTutorials={getTutorials} />
+      <TutorialList tutorials={tutorials} getTutorials={getTutorials}/>
     </>
   );
 };
